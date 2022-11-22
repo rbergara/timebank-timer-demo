@@ -3,8 +3,9 @@ import Counter from '../components/Counter';
 import Timebank from '../components/Timebank';
 
 const TimebankContainer = () => {
-  const [accumulated, setAccumulated] = useState(0);
   const [current, setCurrent] = useState(0);
+  const [accumulated, setAccumulated] = useState(0);
+  const [reseted, setReseted] = useState(true);
   const [running, setRunning] = useState(false);
   const intervalRef = useRef();
 
@@ -18,20 +19,25 @@ const TimebankContainer = () => {
     } else {
       setAccumulated(a => a += current);
       setCurrent(0);
+      setReseted(false);
       clearInterval(intervalRef.current);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[running]);
 
+  useEffect(() => {
+    if(reseted) {
+      setCurrent(0);
+      setAccumulated(0);
+      setRunning(false);
+    }
+  },[reseted]);
+
   const handleToggleState = () => {
     setRunning(!running);
   }
-
   const handleReset = () => {
-    setAccumulated(0);
-    if (running) {
-      setRunning(false);
-    }
+    setReseted(true);
   }
 
   return (
