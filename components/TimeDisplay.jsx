@@ -10,7 +10,7 @@ const TimeDisplay = ({ time }) => {
   const seconds = Math.floor((time % minsMS) / 1000);
 
   return (
-    <div>
+    <div className="flex justify-around gap-x-2 md:gap-x-4">
       <TimeBox time={hours} text='hrs'/>&nbsp;&nbsp;
       <TimeBox time={minutes} text='mins'/>&nbsp;&nbsp;
       <TimeBox time={seconds} text='secs'/>
