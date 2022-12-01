@@ -5,8 +5,8 @@ import Timebank from '../components/Timebank';
 const TimebankContainer = () => {
   const [current, setCurrent] = useState(0);
   const [accumulated, setAccumulated] = useState(0);
-  const [reseted, setReseted] = useState(true);
   const [running, setRunning] = useState(false);
+  const [reseted, setReseted] = useState(true);
   const intervalRef = useRef();
 
   useEffect(() => {
@@ -19,17 +19,18 @@ const TimebankContainer = () => {
     } else {
       setAccumulated(a => a += current);
       setCurrent(0);
-      setReseted(false);
+      setRunning(false);
       clearInterval(intervalRef.current);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[running]);
+  }, [running]);
 
   useEffect(() => {
     if(reseted) {
       setCurrent(0);
       setAccumulated(0);
       setRunning(false);
+      setReseted(false);
     }
   },[reseted]);
 
