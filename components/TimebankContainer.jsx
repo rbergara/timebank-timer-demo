@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import Counter from '../components/Counter';
 import Timebank from '../components/Timebank';
 import { displayTime } from "../lib/utils";
@@ -9,6 +9,21 @@ const TimebankContainer = ({ setTitle }) => {
   const [running, setRunning] = useState(false);
   const [reseted, setReseted] = useState(true);
   const intervalRef = useRef();
+
+  const handleToggleState = () => {
+    setRunning(!running);
+  }
+  const handleReset = () => {
+    setReseted(true);
+  }
+  const handleKeyPressed = useCallback((event) => {
+    if (event.key === 's' || event.key === 'S' || event.key === ' ') {
+      setRunning(!running);
+    }
+    else if (event.ctrlKey && event.code  === 'Backspace') {
+      setReseted(true);
+    }
+  }, [running]);
 
   useEffect(() => {
     if (running) {
@@ -42,12 +57,12 @@ const TimebankContainer = ({ setTitle }) => {
     }
   },[reseted]);
 
-  const handleToggleState = () => {
-    setRunning(!running);
-  }
-  const handleReset = () => {
-    setReseted(true);
-  }
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPressed);
+    return () => {
+      document.removeEventListener('keydown', handleKeyPressed);
+    }
+  }, [handleKeyPressed]);
 
   return (
     <div className="flex flex-col items-center gap-y-8">
