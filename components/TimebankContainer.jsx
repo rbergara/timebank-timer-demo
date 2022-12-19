@@ -55,7 +55,7 @@ const TimebankContainer = ({ setTitle }) => {
       setReseted(false);
       setTitle('Timebank Timer');
     }
-  },[reseted]);
+  },[reseted, setTitle]);
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPressed);

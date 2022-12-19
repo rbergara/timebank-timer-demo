@@ -1,6 +1,7 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import Header from '../components/Header'
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import TimebankContainer from '../components/TimebankContainer';
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
       </Head>
       <Header />
       <TimebankContainer setTitle={setTitle} />
+      <Footer />
     </div>
   )
 }
